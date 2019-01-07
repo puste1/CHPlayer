@@ -107,7 +107,7 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Osullivanluke-Orb-Os-X-Activity-Monitor.ico" />
+    <Content Include="CHPlayer.ico" />
     <Content Include="XXX.ico" />
   </ItemGroup>
   <ItemGroup>
