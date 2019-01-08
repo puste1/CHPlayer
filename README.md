@@ -9,6 +9,6 @@ You can also just select a Video file og URL for video and then load your audio 
 
 And you can read more about this in https://milovana.com/forum/
 
-Remember, you have to install VLC Player before you can use this software.
+Remember, you have to install VLC Player before you can use this software. https://www.videolan.org/
 
 ![image](https://user-images.githubusercontent.com/46462109/50802293-cea1d080-12e6-11e9-959f-745df68cd9b4.png)
