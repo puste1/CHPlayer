@@ -28,5 +28,5 @@ And you can read more about this in https://milovana.com/forum/
 
 Remember, you have to install VLC Player before you can use this software. https://www.videolan.org/
 
-|[](CHPlyerV2.jpg)
+![](CHPlyerV2.jpg)
 
