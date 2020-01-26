@@ -22,7 +22,7 @@ You can also just select a Video file or URL for video and then load your audio 
 
 Then the E-Stim Audio will play on second Adio Card. Eks. an extra External USB Audio Adapter.
 
-Yuu can select the second Audio Sound Device in the program. 
+You can select the second Audio Sound Device in the program. 
 
 And you can read more about this in https://milovana.com/forum/
 
