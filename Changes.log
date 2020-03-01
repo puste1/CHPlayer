@@ -1,0 +1,42 @@
+# Changelog
+  All notable changes to this project will be documented in this file.
+
+## [Unreleased]
+
+## [1.0.0] - 2018-12-16
+  Started developing CHPlayer V. 1.00. which can launch 2 VLC player simultaneously.
+  One with E-Stim Audio and one with the Video file with no Audio output.  
+
+## [1.0.0] - 2019-01-07
+  First version V.1.00 created and uploaded to Github. 
+
+## [1.0.0] - 2019-01-08 
+  V 1.00 Uploaded Readme files to GitHub. 
+
+## [Unreleased] - 2019-12-12
+  Start Develop on V2. 
+
+## [2.0.3] - 2020-01-26 
+  Uploded first release V2.0.3 to Github. 
+  This version launch only one VLC and the main program plays the E-stim Audio 
+  on a second Audio Adapter. (for example an USB Adio Adapter) 
+
+## [2.0.4] - 2020-02-09 
+  V2.04 Uploaded to GitHub. 
+  Help file and PDF files added for dokumentation of the program. 
+
+
+## [2.0.12] - 2020-02-28
+  V2.0.12 Bug Fix version. 
+  Some change was made to the use of NAudio. WaveOut.Stop did not stop audio complete.  
+
+## [2.0.13] - 2020-02-29
+  - V2.0.13 Uploaded to GitHub. Fixed Pornhub. 
+    Mainly not working becouse wrong link used.
+  - Now Pournhub.lua is included with the software setup. 
+
+
+  
+  
+
+  
