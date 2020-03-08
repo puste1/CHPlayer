@@ -34,7 +34,10 @@
   - V2.0.13 Uploaded to GitHub. Fixed Pornhub. 
     Mainly not working becouse wrong link used.
   - Now Pournhub.lua is included with the software setup. 
-
+## [2.0.14] - 2020-03-08
+   - Mainly Bug Fixex 
+   Added some change to NAudio Stop Audio. 
+   Added check for MP3 Audio files exist. 
 
   
   
