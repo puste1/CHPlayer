@@ -30,5 +30,5 @@ Remember, you have to install VLC Player before you can use this software. https
 
 ![](CHPlyerV2.jpg)
 
-Link for all the major e-stim audio files thnaks to LOLOL2. https://milovana.com/forum/viewtopic.php?f=1&t=22138#p267745
+Link for all the major e-stim audio files thanks to LOLOL2. https://milovana.com/forum/viewtopic.php?f=1&t=22138#p267745
 
