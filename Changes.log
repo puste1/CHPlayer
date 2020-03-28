@@ -44,6 +44,14 @@
    Added some check for selected files exixt before play. 
    Added save last used video and audio files selected. 
 
+## [2.0.16] - 2020-03-26  [Unreleased]
+   Minor Error checks. 
+   
+## [2.0.17] - 2020-03-28
+   Added default load of MP3 Audio file. 
+   
+   
+
   
   
 
