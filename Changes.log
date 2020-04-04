@@ -51,8 +51,9 @@
    Added default load of MP3 Audio file. 
    Added some dokumentation in both CHM and PDF files
    
-   
-
+## [2.0.18] - 2020-04-04   
+   Added support for loading *.avi, *.m4v, *.mkv, *.mov, *.mp4, *.mpeg4 and *.ts Video Files
+   Minor Bug Fix. 
   
   
 
