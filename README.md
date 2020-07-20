@@ -20,7 +20,7 @@ Audio files is normaly mp3 e-stim files that match the video files loaded.
 
 You can also just select a Video file or URL for video and then load your audio e-stim file.
 
-Then the E-Stim Audio will play on second Adio Card. Eks. an extra External USB Audio Adapter.
+Then the E-Stim Audio will play on second Adio Card. Ex. an extra External USB Audio Adapter.
 
 You can select the second Audio Sound Device in the program. 
 
