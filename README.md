@@ -28,7 +28,7 @@ And you can read more about this in https://milovana.com/forum/
 
 Remember, you have to install VLC Player before you can use this software. https://www.videolan.org/
 
-![](CHPlayerV2.png)
+![](CHPlayerV2.PNG)
 
 Link for all the major e-stim audio files thanks to LOLOL2. https://milovana.com/forum/viewtopic.php?f=1&t=22138#p267745
 
