@@ -54,6 +54,11 @@
 ## [2.0.18] - 2020-04-04   
    Added support for loading *.avi, *.m4v, *.mkv, *.mov, *.mp4, *.mpeg4 and *.ts Video Files
    Minor Bug Fix. 
+   
+## [2.0.20] - 2020-07-20
+   Added adjust timing 
+   This version is primary for those e-stim files that do not match exactly. Then it is possible to ajust the timing.
+   It does this by waiting for the number of seconds before it either starts the estim file or waits to start VLC.
   
   
 
