@@ -60,6 +60,8 @@
    This version is primary for those e-stim files that do not match exactly. Then it is possible to ajust the timing.
    It does this by waiting for the number of seconds before it either starts the estim file or waits to start VLC.
   
+## [2.0.21] - 2020-10-10
+   Added support for WAV Files and added Duration time on selected Video file. 
   
 
   
