@@ -45,4 +45,4 @@ This program use embeded Windows Media Player for playing Video and for the the 
 CSCore An advanced audio library, written in C# Library to stream Audio to a second Audio Device
 Link to CSCore http://filoe.github.io/cscore/
 
-![](Main Menu.JPG)
+![](CHPlayerV3.png)
