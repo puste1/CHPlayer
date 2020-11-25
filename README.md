@@ -43,6 +43,7 @@ You can select the second Audio Sound Device in the main windows of the program.
 
 This program use embeded Windows Media Player for playing Video and for the the Audio it uses 
 CSCore An advanced audio library, written in C# Library to stream Audio to a second Audio Device
+
 Link to CSCore http://filoe.github.io/cscore/
 
 ![](CHPlayerV3.0.0.png)
