@@ -32,3 +32,17 @@ Remember, you have to install VLC Player before you can use this software. https
 
 Link for all the major e-stim audio files thanks to LOLOL2. https://milovana.com/forum/viewtopic.php?f=1&t=22138#p267745
 
+# CHPlayer V3
+Download and unzip zip file and run setup.exe
+
+Audio files is normaly mp3 e-stim files that match the video files loaded.
+
+Then the E-Stim Audio will play on second Adio Card. Ex. an extra External USB Audio Adapter.
+
+You can select the second Audio Sound Device in the main windows of the program. 
+
+This program use embeded Windows Media Player for playing Video and for the the Audio it uses 
+CSCore An advanced audio library, written in C# Library to stream Audio to a second Audio Device
+Link to CSCore http://filoe.github.io/cscore/
+
+![](Main Menu.JPG)
