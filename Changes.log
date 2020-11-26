@@ -63,8 +63,11 @@
 ## [2.0.21] - 2020-10-10
    Added support for WAV Files and added Duration time on selected Video file. 
    
-## [3.0.0.0] - 2020-11-26
+## [3.0.0] - 2020-11-26
    New version uploaded. 
+
+## [3.0.1] - 2020-11-26
+   Change adjust time from Video. When Video and Audio file do not have same lenght it failed to adjust from Video. 
   
 
   
