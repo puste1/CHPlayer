@@ -67,6 +67,7 @@
    New version uploaded. 
 
 ## [3.0.1] - 2020-11-26
+   Bug Fix: 
    Change adjust time from Video. When Video and Audio file do not have same lenght it failed to adjust from Video. 
   
 
