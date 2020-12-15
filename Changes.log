@@ -72,4 +72,7 @@
   
 ## [3.0.2] - 2020-11-30
    Major Bug Fix: The first 2 version only play sound in mono. This has been changed in this version. 
+
+## [3.0.3] - 2020-12-15
+   Bug Fix: Added check for Audio file exixst. 
   
