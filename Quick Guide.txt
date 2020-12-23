@@ -37,3 +37,4 @@ time on both Video and Audio to se it is in sync.
 The last button with arrows in each direction is to activate full sreen
 
 There is more help to be found in the Help Index in the programs help file.
+or download the PDF file for more information.
