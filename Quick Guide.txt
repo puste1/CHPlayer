@@ -1,0 +1,39 @@
+ quick guide.
+
+1) First you need an extra sound card. I would recommend a simple USB sound card.
+I actually do not think that e-stim requires any very expensive sound card.
+I use a small USB adapter sound card my self.
+It is also shown in the PDF file which can be downloaded from github.
+Remember that this second sound card is what you have to connect to you E-stim device.
+
+2) install the program like all other windows programs.
+You have to unzip file before you can install the program.
+There is 2 files setup.exe and Setup_CHPlayerV3.msi. Press/execute setup.exe.
+(You can check MD5 on both files before install just to be sure no change is made)
+
+3) Once the program is installed, just start it.
+In Windows 10, the program is always displayed in the start menu
+under recently added at the top of the start menu.
+
+4) Before you load any files you have to select the 2. sound card you have installed
+This is shown under Audio Device at the top windows.
+When you have loaded files this is gray out. If you have to change audio device you have to close the program
+and start it again.
+
+5) After starting the program and selected Audio Device, now select a Video file to play. Ex. MP4 Video file.
+This is selected either with the first button at the top left.
+It says "Select Video" when the mouse is held over the button.
+You can also select the same in File - Open Video
+Remember that when you select a Video file, it will automatically select the corresponding MP3 file in the same folder.
+it is this selected MP3 Audio file that is then played via sound card number 2.
+
+6) Or you can select another MP3 file with second bottom.
+It says "Select Audio" when the mouse is held over the button.
+
+7) Thats it. Now you can start playing the Video like all other video player.
+There is a play bottom and stop / pause bottom etc.
+At the top left you can se haw long the file you have select is. When you play it show
+time on both Video and Audio to se it is in sync.
+The last button with arrows in each direction is to activate full sreen
+
+There is more help to be found in the Help Index in the programs help file.
