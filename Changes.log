@@ -75,4 +75,12 @@
 
 ## [3.0.3] - 2020-12-15
    Bug Fix: Added check for Audio file exixst. 
+
+## [3.0.4] - 2020-12-28
+   Added Setup Menu: 
+   Added link for System Audio Settings
+   Added link for App Volume and Device preferences
+   Added Master Volume show in menu. Change when select new Audio Device or select new Audio/Video. 
+
+ 
   
