@@ -35,6 +35,8 @@
  * Note - Do not set all the LEDs to white at full brightness at once
  * (RGB 255,255,255) It may overheat the voltage regulator and cause the board 
  * to reset.
+ *
+ * Added E-Stim Code for the FT2257.  
  */
 //=======Libraries===============================
 #include <Encoder.h>
