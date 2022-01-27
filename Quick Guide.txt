@@ -26,6 +26,7 @@ It says "Select Video" when the mouse is held over the button.
 You can also select the same in File - Open Video
 Remember that when you select a Video file, it will automatically select the corresponding MP3 file in the same folder.
 it is this selected MP3 Audio file that is then played via sound card number 2.
+Just remember that the MP3 files that is automaticly loaded is the first MP3 files it finds.
 
 6) Or you can select another MP3 file with second bottom.
 It says "Select Audio" when the mouse is held over the button.
