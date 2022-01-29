@@ -82,6 +82,7 @@
    Added link for App Volume and Device preferences
    Added Master Volume show in menu. Change when select new Audio Device or select new Audio/Video File. 
    Added more info in help file.
+
 ## [3.0.5] - 2022-01-29
    Added Auto load of mp3 files with same name as mp4 file else load first mp3 in folder. 
    Added Info bottom to show name of files loaded etc. 
