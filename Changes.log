@@ -86,5 +86,6 @@
 ## [3.0.5] - 2022-01-29
    Added Auto load of mp3 files with same name as mp4 file else load first mp3 in folder. 
    Added Info bottom to show name of files loaded etc. 
+   Fix show full time length of video. 
    
   
