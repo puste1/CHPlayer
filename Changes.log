@@ -91,4 +91,6 @@
 ## [3.0.6] - 2022-01-31
    Added new documentation about Auto load etc. to chm help file. 
    
+## [3.0.7] - 2022-01-31
+   Bug fix  Auto load of mp3 files.
   
