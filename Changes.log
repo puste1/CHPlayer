@@ -87,5 +87,8 @@
    Added Auto load of mp3 files with same name as mp4 file else load first mp3 in folder. 
    Added Info bottom to show name of files loaded etc. 
    Fix show full time length of video. 
+
+## [3.0.6] - 2022-01-31
+   Added more information to chm help file. 
    
   
