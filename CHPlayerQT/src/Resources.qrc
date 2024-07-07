@@ -1,0 +1,10 @@
+<RCC>
+    <qresource prefix="/resources">
+        <file>Full_screen.png</file>
+        <file>Icon.jpg</file>
+        <file>My-Music-icon.png</file>
+        <file>My-Videos-icon.png</file>
+        <file>information-emblem.png</file>
+        <file>XXX.ico</file>
+    </qresource>
+</RCC>
