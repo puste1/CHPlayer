@@ -34,22 +34,27 @@ MainWindow::MainWindow(QWidget *parent)
 {
     ui->setupUi(this);
 
+    //outputAudioComboBox = new QComboBox(this);
+
     // Initialize the VLC media player
-    vlcInstance = libvlc_new(0, nullptr);
-    vlcMediaPlayer = libvlc_media_player_new(vlcInstance);
+    //vlcInstance = libvlc_new(0, nullptr);
+    //vlcMediaPlayer = libvlc_media_player_new(vlcInstance);
 
     // Warning Window
     QWidget window;
 
 
+
+    //******************************************************************************
     // Create media control widgets
+    //******************************************************************************
     playPauseButton = new QPushButton("▶", this);
     playPauseButton->setFixedSize(30, 30); // Set fixed size for the play/pause button
     connect(playPauseButton, &QPushButton::clicked, this, &MainWindow::onPlayPauseClicked);
 
     // Create the media player
-    QMediaPlayer *player = new QMediaPlayer;
-    QAudioOutput *audioOutput = new QAudioOutput;
+    player = new QMediaPlayer;
+    audioOutput = new QAudioOutput;
     player->setAudioOutput(audioOutput);
 
     // Stop Botton
@@ -95,6 +100,54 @@ MainWindow::MainWindow(QWidget *parent)
     statusBar()->addPermanentWidget(mediaControlWidget);
 
 
+    //****************************************************************
+    // Create the Toolbar
+    //****************************************************************
+
+    // Set the background color of the toolbar
+    ui->toolBar->setStyleSheet("QToolBar { background-color: #99C1F1; }");
+    ui->toolBar->setIconSize(QSize(32, 32));  // Set the size as needed
+    // Load all Icons to toolbar
+    loadToolicons();
+
+    // create the QComboBox for the list of Audio Devices
+    outputAudioComboBox = new QComboBox(this);
+
+    // Set the width of the QComboBox
+    outputAudioComboBox->setFixedWidth(280);
+
+    // Retrieve available audio output devices also called Populate audio output devices
+    const QList<QAudioDevice> audioDevices = QMediaDevices::audioOutputs();
+
+    // Put the Populate audio output devices to QComboBox
+    for (const QAudioDevice &device : audioDevices) {
+        outputAudioComboBox->addItem(device.description(), QVariant::fromValue(device));
+    }
+
+    // Add QComboBox to toolbar
+    ui->toolBar->addWidget(outputAudioComboBox);
+
+    // Connect the Set select Audio
+    connect(outputAudioComboBox, QOverload<int>::of(&QComboBox::currentIndexChanged), this, &MainWindow::onAudioOutputChanged);
+
+
+
+    //**************************************************************
+    // VLC
+    //**************************************************************
+
+    QWidget *centralWidget = new QWidget(this);
+    setCentralWidget(centralWidget);
+
+    // Create a layout for the central widget
+    QVBoxLayout *layout = new QVBoxLayout(centralWidget);
+
+    // Create the video frame (assuming it's a QFrame for VLC)
+    videoFrame = new QFrame(this);
+    videoFrame->setStyleSheet("background-color: black;");
+
+    // Initialize VLC player and set the video frame as the output
+    //libvlc_instance_t *vlcInstance = libvlc_new(0, nullptr);
     // Initialize LibVLC
     vlcInstance = libvlc_new(0, nullptr);
     if (!vlcInstance) {
@@ -102,36 +155,22 @@ MainWindow::MainWindow(QWidget *parent)
         return;
     }
 
-    // Create a new media player
     vlcMediaPlayer = libvlc_media_player_new(vlcInstance);
-    if (!vlcMediaPlayer) {
-        qDebug() << "LibVLC media player creation failed.";
-        return;
-    }
-
-    // Ensure the QFrame is visible and properly configured
-    //QFrame *topFrame = ui->topFrame;
-    QFrame *videoFrame = ui->videoFrame;
-    videoFrame->setAttribute(Qt::WA_OpaquePaintEvent);
-    videoFrame->show();
-
-    // Initial setup
-    setTopFrameWidthToScreenSize();
-
-    // Create a layout and set it for the central widget
-    QVBoxLayout* layout = new QVBoxLayout(this);
+    // For Microsoft Windows
+    //libvlc_media_player_set_hwnd(vlcMediaPlayer, reinterpret_cast<void *>(videoFrame->winId()));
+    // For Linux X11
+    libvlc_media_player_set_xwindow(vlcMediaPlayer, videoFrame->winId());
 
 
-    // Add the QFrame to the layout
+    // Add the video frame to the layout
     layout->addWidget(videoFrame);
 
-    //videoFrame->setFixedHeight(600); // Set a fixed height for the video frame
-    layout->setContentsMargins(0, 0, 0, 0); // Adjust the margins as needed
+    // Set the layout on the central widget
+    centralWidget->setLayout(layout);
+    layout->setContentsMargins(0, 0, 0, 0);  // Remove margins
 
 
-    // Get the native window handle (X11 on Linux)
-    qDebug() << "videoFrame winId:" << videoFrame->winId();
-    libvlc_media_player_set_xwindow(vlcMediaPlayer, videoFrame->winId());
+
 
     // Set Default Dir to User's Home Directory
     QString defaultDir = QDir::homePath();
@@ -189,9 +228,6 @@ MainWindow::MainWindow(QWidget *parent)
         }
     };
 
-
-    // Connect the button to the function
-    connect(ui->OpenVideo, &QPushButton::clicked, openVideoFile);
     // Conenct Use Menu to Load Video File
     connect(ui->actionLoad_Video_File, &QAction::triggered, openVideoFile);
 
@@ -213,35 +249,13 @@ MainWindow::MainWindow(QWidget *parent)
         }
     };
 
-    // Connect the button to the function
-    connect(ui->OpenAudio, &QPushButton::clicked, openAudioFile);
     // Conenct Use Menu to Load Audio File
     connect(ui->actionLoad_Audio_File, &QAction::triggered, openAudioFile);
 
 
-    // Connect audio output combo box
-    connect(ui->audioOutputComboBox, &QComboBox::currentTextChanged, this, &MainWindow::updateAudioOutput);
-
-    // Retrieve available audio output devices also called Populate audio output devices
-    const QList<QAudioDevice> audioDevices = QMediaDevices::audioOutputs();
-
-    // Put the Populate audio output devices to combobox
-    for (const QAudioDevice &device : audioDevices) {
-        ui->audioOutputComboBox->addItem(device.description(), QVariant::fromValue(device));
-    }
-
-    // Set select Audio
-    connect(ui->audioOutputComboBox, QOverload<int>::of(&QComboBox::currentIndexChanged), this, &MainWindow::onAudioOutputChanged);
-
     //onAudioOutputChanged();
     //QAudioDevice info(QMediaDevices::defaultAudioOutput());
 
-
-
-    //************************************************************************
-    // Connect Fullscreen Botton
-    //************************************************************************
-    connect(ui->BtFullscreen, &QPushButton::clicked, this, &MainWindow::toggleFullscreen);
 
     // Connect volume slider
     //connect(volumeSlider, &QSlider::valueChanged, this, &MainWindow::setVolume);
@@ -279,6 +293,51 @@ MainWindow::~MainWindow()
     libvlc_media_player_release(vlcMediaPlayer);
     libvlc_release(vlcInstance);
     delete ui;
+}
+
+//**************************************************************************************
+// Load Icon to Toolbar
+//**************************************************************************************
+void MainWindow::loadToolicons()
+{
+    // Ensure the toolbar displays icons
+    ui->toolBar->setToolButtonStyle(Qt::ToolButtonIconOnly);
+
+    // Load the icon from a file
+    QIcon videoIcon(":/resources/My-Videos-icon.png");
+    QIcon audioIcon(":/resources/My-Music-icon.png");
+    ui->actionLoad_Video_File->setIcon(videoIcon);
+    ui->actionLoad_Audio_File->setIcon(audioIcon);
+
+    // Create a label
+    QLabel *space = new QLabel("            ", this);
+    QLabel *audioLabel = new QLabel("Audio Device:", this);
+    audioLabel->setStyleSheet("QLabel { font-size: 12pt; }");
+    QLabel *space2 = new QLabel("     ", this);
+
+    ui->toolBar->addWidget(space);
+    ui->toolBar->addWidget(audioLabel);
+    ui->toolBar->addWidget(space2);
+
+}
+
+//**************************************************************************************
+// Change Audio Devices
+//**************************************************************************************
+void MainWindow::onAudioOutputChanged()
+{
+
+    //QVariant data = outputAudioComboBox->currentData();
+    //if (data.isValid()) {
+    //    QAudioDevice selectedDevice = data.value<QAudioDevice>();
+        // Handle the selected device
+    //    qDebug() << "Selected audio output device:" << &selectedDevice;
+   // }
+
+    QAudioDevice selectedDevice = outputAudioComboBox->currentData().value<QAudioDevice>();
+    qDebug() << "Selected audio device:" << selectedDevice.description();
+    audioOutput->setDevice(selectedDevice);
+   // player->setAudioOutput(audioOutput);
 }
 
 //**************************************************************************************
@@ -395,29 +454,6 @@ void MainWindow::pause()
 }
 
 //**************************************************************************************
-// Swith from Normal to Fullscreen vs
-//**************************************************************************************
-void MainWindow::toggleFullscreen()
-{
-    if (isFullScreen) {
-        isFullScreen = false;
-        ui->topFrame->show();
-        ui->menubar->show();
-        ui->videoFrame->setGeometry(0,0,600,800);
-        showNormal();
-        statusBar()->show();
-    } else {
-        isFullScreen = true;
-        ui->topFrame->hide();
-        ui->menubar->hide();
-        showFullScreen();
-        ui->videoFrame->setGeometry(0, 0, this->width(), this->height());
-        // Hide the status bar
-        statusBar()->hide();
-    }
-}
-
-//**************************************************************************************
 // Set Video Position with Slider
 //**************************************************************************************
 void MainWindow::setPosition(int position)
@@ -426,42 +462,12 @@ void MainWindow::setPosition(int position)
 }
 
 //**************************************************************************************
-// Set Frame on Top Screen
-//**************************************************************************************
-void MainWindow::setTopFrameWidthToScreenSize() {
-    // Get the screen size
-    QRect screenGeometry = QApplication::primaryScreen()->geometry();
-    int screenWidth = screenGeometry.width();
-
-    // Set the width of the topFrame to the screen width
-    ui->topFrame->setGeometry(0, ui->topFrame->geometry().y(), screenWidth, ui->topFrame->geometry().height());
-    // Set the width of the botFrame to the screen width
-
-    // Optionally, adjust the layout to make sure it scales properly
-    QVBoxLayout* layout = new QVBoxLayout;
-    layout->setContentsMargins(0, 0, 0, 0);
-    layout->addWidget(ui->topFrame);
-    centralWidget()->setLayout(layout);
-}
-
-//**************************************************************************************
-// Set Video Frame to Resize Window include top Frame
-//**************************************************************************************
-void MainWindow::resizeEvent(QResizeEvent *event)
-{
-    QMainWindow::resizeEvent(event);
-    ui->videoFrame->setGeometry(0, 0, event->size().width(), event->size().height());
-    // Ensure the topFrame always fits the width of the window
-    setTopFrameWidthToScreenSize();
-}
-
-//**************************************************************************************
 // Escape Key Pressed to exit Fullscreen
 //**************************************************************************************
 void MainWindow::keyPressEvent(QKeyEvent *event)
 {
     if (event->key() == Qt::Key_Escape && isFullScreen) {
-        toggleFullscreen();
+        on_actionfullScreen_triggered();
     } else {
         QMainWindow::keyPressEvent(event); // Call the base class implementation
     }
@@ -474,7 +480,7 @@ void MainWindow::mousePressEvent(QMouseEvent *event)
 {
     if (event->button() == Qt::LeftButton && isFullScreen)
     {
-        toggleFullscreen();
+        on_actionfullScreen_triggered();
     }
 }
 
@@ -502,36 +508,6 @@ void MainWindow::updateUI() {
 }
 
 //**************************************************************************************
-// Update Audio Devices
-//**************************************************************************************
-void MainWindow::updateAudioOutput() {
-    if (ui->audioOutputComboBox->currentIndex() >= 0) {
-        //QAudioDevice device = ui->audioOutputComboBox->currentData().value<QAudioDevice>();
-        //audioOutput->setDevice(device);
-    }
-}
-
-//**************************************************************************************
-// Change Audio Devices
-//**************************************************************************************
-void MainWindow::onAudioOutputChanged()
-{
-    QAudioDevice selectedDevice = ui->audioOutputComboBox->currentData().value<QAudioDevice>();
-    qDebug() << "Selected audio device:" << selectedDevice.description();
-    audioOutput->setDevice(selectedDevice);
-    player->setAudioOutput(audioOutput);
-}
-
-
-//**************************************************************************************
-// Show Files open
-//**************************************************************************************
-void MainWindow::on_OpenInfo_clicked()
-{
-    QMessageBox::information(this, "File Selected", "Video File: " + videoFile + "\n\nAudio File: " + audioFile);
-}
-
-//**************************************************************************************
 // Show About
 //**************************************************************************************
 void MainWindow::on_actionAbout_triggered()
@@ -539,7 +515,7 @@ void MainWindow::on_actionAbout_triggered()
     QMessageBox msgBox;
     QApplication::setWindowIcon(QIcon(":/XXX.ico")); // from a resource file
     QMessageBox::about(this, "About CHPlyer QT", "CHPlayer QT\n\n"
-        "Verion: Beta 1\n\n"
+        "Verion: Beta 2\n\n"
         "Copyright © 2024\n\n"
         "XXXApp\n\n"
         "This Program CH Player QT start embeded VLC Video PLayer\n"
@@ -552,14 +528,17 @@ void MainWindow::on_actionAbout_triggered()
 
 }
 
+//**************************************************************************************
+// Get Volume
+//**************************************************************************************
 void MainWindow::getVolume()
 {
 
-    ui->audioSlider->setRange(0, 100);
-    ui->audioSlider->setFixedWidth(100);
-    ui->audioSlider->setValue(100);
+    //ui->audioSlider->setRange(0, 100);
+    //ui->audioSlider->setFixedWidth(100);
+    //ui->audioSlider->setValue(100);
 
-    connect(ui->audioSlider, SIGNAL(valueChanged(int)), this, SIGNAL(volumeChanged(int)));
+    //connect(ui->audioSlider, SIGNAL(valueChanged(int)), this, SIGNAL(volumeChanged(int)));
     //connect(ui->audioSlider, SIGNAL(valueChanged(int)), player, SLOT(setVolume(int)));
 
     //int readvolume = player->volume();
@@ -568,4 +547,34 @@ void MainWindow::getVolume()
 
 }
 
+//**************************************************************************************
+// Swith from Normal to Fullscreen vs
+//**************************************************************************************
+void MainWindow::on_actionfullScreen_triggered()
+{
+    if (isFullScreen) {
+        isFullScreen = false;
+        ui->menubar->show();
+        //ui->videoFrame->setGeometry(0,0,600,800);
+        showNormal();
+        statusBar()->show();
+        ui->toolBar->setVisible(true);
+    } else {
+        isFullScreen = true;
+        ui->menubar->hide();
+        showFullScreen();
+        //ui->videoFrame->setGeometry(0, 0, this->width(), this->height());
+        // Hide the status bar
+        statusBar()->hide();
+        ui->toolBar->setVisible(false);
+    }
+}
+
+//**************************************************************************************
+// Show Files open
+//**************************************************************************************
+void MainWindow::on_actioninfoScreen_triggered()
+{
+    QMessageBox::information(this, "File Selected", "Video File: " + videoFile + "\n\nAudio File: " + audioFile);
+}
 

@@ -12,6 +12,7 @@
 #include <QMouseEvent>
 #include <QComboBox>
 #include <QMediaPlayer>
+#include <QAudioDevice>
 #include <QAudioOutput>
 
 
@@ -42,22 +43,15 @@ private slots:
     void onStopClicked();
     void onVolumeChanged(int value);
     void onMuteClicked();
-
-    void on_OpenInfo_clicked();
-
     void on_actionAbout_triggered();
-
-protected:
-    void resizeEvent(QResizeEvent *e) override;
+    void on_actionfullScreen_triggered();
+    void on_actioninfoScreen_triggered();
 
 protected:
     void keyPressEvent(QKeyEvent *event) override;
 
 protected:
     void mousePressEvent(QMouseEvent *event) override;
-
-private:
-    void toggleFullscreen();
 
 private:
     void play();
@@ -67,6 +61,9 @@ private:
 
 private:
     void stop();
+
+private:
+    void loadToolicons();
 
 private:
     void setPosition(int position);
@@ -94,6 +91,7 @@ private:
     Ui::MainWindow *ui;
     libvlc_instance_t *vlcInstance;
     libvlc_media_player_t *vlcMediaPlayer;
+    QFrame *videoFrame;
     QPushButton *BtFullscreen;
     bool isFullScreen = false;
     QPushButton *playPauseButton;
@@ -108,12 +106,11 @@ private:
     QMediaPlayer *player;
     QAudioOutput *audioOutput;
     QString filePath;
-    QComboBox *audioOutputComboBox;
+    QComboBox *outputAudioComboBox;
     bool audio = false;
     QString videoFile;
     QString audioFile;
-    //QString audioPath;
-    //QWidget *videoWidget;
+
 
 };
 
