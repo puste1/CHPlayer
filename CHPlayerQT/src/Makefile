@@ -18,7 +18,7 @@ DEFINES       = -DQT_NO_DEBUG -DQT_WIDGETS_LIB -DQT_MULTIMEDIA_LIB -DQT_GUI_LIB 
 CFLAGS        = -pipe -O2 -Wall -Wextra -fPIC -D_REENTRANT $(DEFINES)
 CXXFLAGS      = -pipe -O2 -std=gnu++1z -Wall -Wextra -fPIC -D_REENTRANT $(DEFINES)
 INCPATH       = -I../../../QCHPlayer -I. -I/usr/include/qt5/QtMultimedia -I/usr/include/vlc -I../../../../Qt/Tools/QtDesignStudio/qt6_design_studio_reduced_version/include -I../../../../Qt/Tools/QtDesignStudio/qt6_design_studio_reduced_version/include/QtWidgets -I../../../../Qt/Tools/QtDesignStudio/qt6_design_studio_reduced_version/include/QtMultimedia -I../../../../Qt/Tools/QtDesignStudio/qt6_design_studio_reduced_version/include/QtGui -I../../../../Qt/Tools/QtDesignStudio/qt6_design_studio_reduced_version/include/QtNetwork -I../../../../Qt/Tools/QtDesignStudio/qt6_design_studio_reduced_version/include/QtCore -I. -I. -I../../../../Qt/Tools/QtDesignStudio/qt6_design_studio_reduced_version/mkspecs/linux-g++
-QMAKE         = /home/poul/Qt/Tools/QtDesignStudio/qt6_design_studio_reduced_version/bin/qmake
+QMAKE         = /home/[USER]/Qt/Tools/QtDesignStudio/qt6_design_studio_reduced_version/bin/qmake
 DEL_FILE      = rm -f
 CHK_DIR_EXISTS= test -d
 MKDIR         = mkdir -p
@@ -28,8 +28,8 @@ COPY_DIR      = cp -f -R
 INSTALL_FILE  = install -m 644 -p
 INSTALL_PROGRAM = install -m 755 -p
 INSTALL_DIR   = cp -f -R
-QINSTALL      = /home/poul/Qt/Tools/QtDesignStudio/qt6_design_studio_reduced_version/bin/qmake -install qinstall
-QINSTALL_PROGRAM = /home/poul/Qt/Tools/QtDesignStudio/qt6_design_studio_reduced_version/bin/qmake -install qinstall -exe
+QINSTALL      = /home/[USER]/Qt/Tools/QtDesignStudio/qt6_design_studio_reduced_version/bin/qmake -install qinstall
+QINSTALL_PROGRAM = /home/[USER]/Qt/Tools/QtDesignStudio/qt6_design_studio_reduced_version/bin/qmake -install qinstall -exe
 DEL_FILE      = rm -f
 SYMLINK       = ln -f -s
 DEL_DIR       = rmdir
@@ -37,10 +37,10 @@ MOVE          = mv -f
 TAR           = tar -cf
 COMPRESS      = gzip -9f
 DISTNAME      = AudioPlayer1.0.0
-DISTDIR = /home/poul/QCHPlayer/QCHPlayer/build/Desktop-Release/.tmp/AudioPlayer1.0.0
+DISTDIR = /home/[USER]/QCHPlayer/QCHPlayer/build/Desktop-Release/.tmp/AudioPlayer1.0.0
 LINK          = g++
-LFLAGS        = -Wl,-O1 -Wl,-rpath,/home/poul/Qt/Tools/QtDesignStudio/qt6_design_studio_reduced_version/lib -Wl,-rpath-link,/home/poul/Qt/Tools/QtDesignStudio/qt6_design_studio_reduced_version/lib
-LIBS          = $(SUBLIBS) -L/usr/lib -lvlc -lvlccore -ldl /home/poul/Qt/Tools/QtDesignStudio/qt6_design_studio_reduced_version/lib/libQt6Widgets.so /home/poul/Qt/Tools/QtDesignStudio/qt6_design_studio_reduced_version/lib/libQt6Multimedia.so -pthread /home/poul/Qt/Tools/QtDesignStudio/qt6_design_studio_reduced_version/lib/libQt6Gui.so /home/poul/Qt/Tools/QtDesignStudio/qt6_design_studio_reduced_version/lib/libQt6Network.so /home/poul/Qt/Tools/QtDesignStudio/qt6_design_studio_reduced_version/lib/libQt6Core.so -lpthread -lGL   
+LFLAGS        = -Wl,-O1 -Wl,-rpath,/home/[USER]/Qt/Tools/QtDesignStudio/qt6_design_studio_reduced_version/lib -Wl,-rpath-link,/home/[USER]/Qt/Tools/QtDesignStudio/qt6_design_studio_reduced_version/lib
+LIBS          = $(SUBLIBS) -L/usr/lib -lvlc -lvlccore -ldl /home/[USER]/Qt/Tools/QtDesignStudio/qt6_design_studio_reduced_version/lib/libQt6Widgets.so /home/[USER]/Qt/Tools/QtDesignStudio/qt6_design_studio_reduced_version/lib/libQt6Multimedia.so -pthread /home/[USER]/Qt/Tools/QtDesignStudio/qt6_design_studio_reduced_version/lib/libQt6Gui.so /home/[USER]/Qt/Tools/QtDesignStudio/qt6_design_studio_reduced_version/lib/libQt6Network.so /home/[USER]/Qt/Tools/QtDesignStudio/qt6_design_studio_reduced_version/lib/libQt6Core.so -lpthread -lGL   
 AR            = ar cqs
 RANLIB        = 
 SED           = sed
@@ -1277,7 +1277,7 @@ qrc_Resources.cpp: ../../Resources.qrc \
 		../../XXX.ico \
 		../../Icon.jpg \
 		../../information-emblem.png
-	/home/poul/Qt/Tools/QtDesignStudio/qt6_design_studio_reduced_version/libexec/rcc -name Resources --no-zstd ../../Resources.qrc -o qrc_Resources.cpp
+	/home/[USER]/Qt/Tools/QtDesignStudio/qt6_design_studio_reduced_version/libexec/rcc -name Resources --no-zstd ../../Resources.qrc -o qrc_Resources.cpp
 
 compiler_moc_predefs_make_all: moc_predefs.h
 compiler_moc_predefs_clean:
@@ -1513,7 +1513,7 @@ moc_mainwindow.cpp: ../../mainwindow.h \
 		../../../../Qt/Tools/QtDesignStudio/qt6_design_studio_reduced_version/include/QtMultimedia/qaudiooutput.h \
 		moc_predefs.h \
 		../../../../Qt/Tools/QtDesignStudio/qt6_design_studio_reduced_version/libexec/moc
-	/home/poul/Qt/Tools/QtDesignStudio/qt6_design_studio_reduced_version/libexec/moc $(DEFINES) --include /home/poul/QCHPlayer/QCHPlayer/build/Desktop-Release/moc_predefs.h -I/home/poul/Qt/Tools/QtDesignStudio/qt6_design_studio_reduced_version/mkspecs/linux-g++ -I/home/poul/QCHPlayer/QCHPlayer -I/usr/include/qt5/QtMultimedia -I/usr/include/vlc -I/home/poul/Qt/Tools/QtDesignStudio/qt6_design_studio_reduced_version/include -I/home/poul/Qt/Tools/QtDesignStudio/qt6_design_studio_reduced_version/include/QtWidgets -I/home/poul/Qt/Tools/QtDesignStudio/qt6_design_studio_reduced_version/include/QtMultimedia -I/home/poul/Qt/Tools/QtDesignStudio/qt6_design_studio_reduced_version/include/QtGui -I/home/poul/Qt/Tools/QtDesignStudio/qt6_design_studio_reduced_version/include/QtNetwork -I/home/poul/Qt/Tools/QtDesignStudio/qt6_design_studio_reduced_version/include/QtCore -I. -I/usr/include/c++/11 -I/usr/include/x86_64-linux-gnu/c++/11 -I/usr/include/c++/11/backward -I/usr/lib/gcc/x86_64-linux-gnu/11/include -I/usr/local/include -I/usr/include/x86_64-linux-gnu -I/usr/include ../../mainwindow.h -o moc_mainwindow.cpp
+	/home/[USER]/Qt/Tools/QtDesignStudio/qt6_design_studio_reduced_version/libexec/moc $(DEFINES) --include /home/[USER]/QCHPlayer/QCHPlayer/build/Desktop-Release/moc_predefs.h -I/home/[USER]/Qt/Tools/QtDesignStudio/qt6_design_studio_reduced_version/mkspecs/linux-g++ -I/home/[USER]/QCHPlayer/QCHPlayer -I/usr/include/qt5/QtMultimedia -I/usr/include/vlc -I/home/[USER]/Qt/Tools/QtDesignStudio/qt6_design_studio_reduced_version/include -I/home/[USER]/Qt/Tools/QtDesignStudio/qt6_design_studio_reduced_version/include/QtWidgets -I/home/[USER]/Qt/Tools/QtDesignStudio/qt6_design_studio_reduced_version/include/QtMultimedia -I/home/[USER]/Qt/Tools/QtDesignStudio/qt6_design_studio_reduced_version/include/QtGui -I/home/[USER]/Qt/Tools/QtDesignStudio/qt6_design_studio_reduced_version/include/QtNetwork -I/home/[USER]/Qt/Tools/QtDesignStudio/qt6_design_studio_reduced_version/include/QtCore -I. -I/usr/include/c++/11 -I/usr/include/x86_64-linux-gnu/c++/11 -I/usr/include/c++/11/backward -I/usr/lib/gcc/x86_64-linux-gnu/11/include -I/usr/local/include -I/usr/include/x86_64-linux-gnu -I/usr/include ../../mainwindow.h -o moc_mainwindow.cpp
 
 compiler_moc_objc_header_make_all:
 compiler_moc_objc_header_clean:
@@ -1524,7 +1524,7 @@ compiler_uic_clean:
 	-$(DEL_FILE) ui_mainwindow.h
 ui_mainwindow.h: ../../mainwindow.ui \
 		../../../../Qt/Tools/QtDesignStudio/qt6_design_studio_reduced_version/libexec/uic
-	/home/poul/Qt/Tools/QtDesignStudio/qt6_design_studio_reduced_version/libexec/uic ../../mainwindow.ui -o ui_mainwindow.h
+	/home/[USER]/Qt/Tools/QtDesignStudio/qt6_design_studio_reduced_version/libexec/uic ../../mainwindow.ui -o ui_mainwindow.h
 
 compiler_yacc_decl_make_all:
 compiler_yacc_decl_clean:
