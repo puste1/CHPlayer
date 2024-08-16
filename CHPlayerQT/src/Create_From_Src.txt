@@ -1,0 +1,13 @@
+CHPLayer QT on Linux. (Created in Linux Mint)
+First you have to install QT Creator community enviriment.
+And after that you have to Clone all the files from this src folder)
+Then You have to load QCHPlayer.pro. (This is the Project File) 
+And when all are read into QT Creator then you are ready to compile the program.
+Compile has to be for release not debug. 
+Before Program is compiled. You have to ensure that you install all prerequisite.
+VLC Player should be installed on the system. And MP3 Audio Codec. Ex.  
+sudo apt install libmad0 libmad0-dev
+sudo apt install libmpg123-dev
+sudo apt install vlc (You can also install VLC via Flatpack) 
+
+Then You should be ready to run the program in Linux.
