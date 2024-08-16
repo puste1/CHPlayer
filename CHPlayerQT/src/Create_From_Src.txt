@@ -11,3 +11,4 @@ sudo apt install libmpg123-dev
 sudo apt install vlc (You can also install VLC via Flatpack) 
 
 Then You should be ready to run the program in Linux.
+When I found a way to create a package, then I will share this. 
