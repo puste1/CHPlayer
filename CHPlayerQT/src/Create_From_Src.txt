@@ -1,6 +1,6 @@
 CHPLayer QT on Linux. (Created in Linux Mint)
 First you have to install QT Creator community Edition.
-And after that you have to Clone all the files from this src folder)
+And after that you have to Clone all the files from this src folder.
 Then You have to load QCHPlayer.pro. (This is the Project File) 
 And when all are read into QT Creator then you are ready to compile the program.
 Compile has to be for release not debug. 
