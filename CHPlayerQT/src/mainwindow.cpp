@@ -6,6 +6,8 @@
 #include <QFileDialog>
 #include <QMessageBox>
 #include <QUrl>
+#include <QDir>
+#include <QString>
 #include <QDebug>
 #include <QFrame>
 #include <QLabel>
@@ -22,7 +24,9 @@
 #include <QMediaDevices>
 #include <QAudioDevice>
 #include <QAudioSink>
+#include <QSettings>
 #include <QCoreApplication>
+#include <QAudioFormat>
 
 
 
@@ -33,6 +37,7 @@ MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent), ui(new Ui::MainWindow), vlcMediaPlayer(nullptr)
 {
     ui->setupUi(this);
+
 
     //outputAudioComboBox = new QComboBox(this);
 
@@ -67,11 +72,13 @@ MainWindow::MainWindow(QWidget *parent)
     muteButton->setFixedSize(30, 30); // Set fixed size for the play/pause button
     connect(muteButton, &QPushButton::clicked, this, &MainWindow::onMuteClicked);
 
-    // Volume Slider
+    // Video Volume Slider
     volumeSlider = new QSlider(Qt::Horizontal, this);
     volumeSlider->setFixedSize(80,30); // Set fixed size for the play/pause button
     volumeSlider->setRange(0, 100); // Minimum value = 0, Maximum value = 100
-    volumeSlider->setValue(volumeSlider->maximum());
+    volumeSlider->setValue(80);
+
+    //volumeSlider->setValue(volumeSlider->maximum());
 
     // Progress Slider
     progressSlider = new QSlider(Qt::Horizontal, this);
@@ -155,11 +162,27 @@ MainWindow::MainWindow(QWidget *parent)
         return;
     }
 
+    vlcAInstance = libvlc_new(0, nullptr);
+    if (!vlcAInstance) {
+        qDebug() << "LibVLC Audio initialization failed.";
+        return;
+    }
+
     vlcMediaPlayer = libvlc_media_player_new(vlcInstance);
+    vlcAudioPlayer = libvlc_media_player_new(vlcAInstance);
     // For Microsoft Windows
     //libvlc_media_player_set_hwnd(vlcMediaPlayer, reinterpret_cast<void *>(videoFrame->winId()));
     // For Linux X11
     libvlc_media_player_set_xwindow(vlcMediaPlayer, videoFrame->winId());
+
+    //libvlc_audio_output_device_set(vlcAudioPlayer, NULL, audioOutputDevice)
+
+    // Unmute audio
+    libvlc_audio_set_mute(vlcMediaPlayer, false);
+
+
+    // Connect the Video Volume slider's valueChanged signal to a slot:
+    connect(volumeSlider, &QSlider::valueChanged, this, &MainWindow::onVideoVolumeChanged);
 
 
     // Add the video frame to the layout
@@ -168,8 +191,6 @@ MainWindow::MainWindow(QWidget *parent)
     // Set the layout on the central widget
     centralWidget->setLayout(layout);
     layout->setContentsMargins(0, 0, 0, 0);  // Remove margins
-
-
 
 
     // Set Default Dir to User's Home Directory
@@ -182,9 +203,10 @@ MainWindow::MainWindow(QWidget *parent)
 
     // Using a lambda with explicit capture of defaultDir
     auto openVideoFile = [this, defaultDir]() {
+        getLastUsedDirectory();
         videoFile = "";
         audioFile = "";
-        QString mediaPath = QFileDialog::getOpenFileName(this, tr("Open Media"), defaultDir, tr("Video Files (*.mp4 *.mpeg1 *.mpeg2 *.mov *.ts *.ogv *.AVI *.3GP *.VLC);;All files(*)"));
+        QString mediaPath = QFileDialog::getOpenFileName(this, tr("Open Media"), lastUsedDirectory, tr("Video Files (*.mp4 *.m4v *.mpeg1 *.mpeg2 *.mov *.ts *.ogv *.AVI *.3GP *.VLC);;All files(*)"));
         if (!mediaPath.isEmpty()) {
             loadMedia(mediaPath);
             // Save Video Filename for Info
@@ -194,7 +216,10 @@ MainWindow::MainWindow(QWidget *parent)
             // Get mp3 file same as videofile name if exist.
             QString directoryPath = fileInfo.absolutePath();
             QString mp3Name = directoryPath + '/' + fileInfo.completeBaseName() + ".mp3";  // Extract the filename without extension
+            // Save Last used dir
+            setLastUsedDirectory(directoryPath);
             qDebug() << "Base name without extension:" << mp3Name;
+            // Try to use same MP3 name as video file
             if (QFile::exists(mp3Name)) {
                 loadAudio(mp3Name);
                 // Save Audio Filename for Info
@@ -235,8 +260,9 @@ MainWindow::MainWindow(QWidget *parent)
     // initialization function play Audio function
     //********************************************************************
     auto openAudioFile = [this, defaultDir]() {
+        getLastUsedDirectory();
         audioFile = "";
-        QString audioPath = QFileDialog::getOpenFileName(this, tr("Select Audio File"), defaultDir, tr("Audio files (*.mp3 *.flac *.wav *.aiff *.ogg);;All files(*)"));
+        QString audioPath = QFileDialog::getOpenFileName(this, tr("Select Audio File"), lastUsedDirectory, tr("Audio files (*.mp3 *.flac *.wav *.aiff *.ogg);;All files(*)"));
         if (!audioPath.isEmpty()) {
             loadAudio(audioPath);
             QFileInfo fileInfo(audioPath);
@@ -279,7 +305,7 @@ MainWindow::MainWindow(QWidget *parent)
     //************************************************************************
     connect(ui->actionExit, &QAction::triggered, qApp, &QCoreApplication::quit);
 
-    getVolume();
+    //getVolume();
 
 }
 
@@ -293,6 +319,22 @@ MainWindow::~MainWindow()
     libvlc_media_player_release(vlcMediaPlayer);
     libvlc_release(vlcInstance);
     delete ui;
+}
+
+//**************************************************************************************
+// Get Last Used Directory
+//**************************************************************************************
+void MainWindow::getLastUsedDirectory() {
+    QSettings settings("XXXApp", "CHPlayerQT");
+    lastUsedDirectory = settings.value("LastUsedDirectory", QDir::homePath()).toString();
+}
+
+//**************************************************************************************
+// Set Last Used Directory
+//**************************************************************************************
+void MainWindow::setLastUsedDirectory(const QString &directory) {
+    QSettings settings("XXXApp", "CHPlayerQT");
+    settings.setValue("LastUsedDirectory", directory);
 }
 
 //**************************************************************************************
@@ -371,8 +413,9 @@ void MainWindow::loadAudio(const QString &audioPath)
     connect(player, SIGNAL(positionChanged(qint64)), this, SLOT(positionChanged(qint64)));
     // Set Audio File name to play
     player->setSource(QUrl::fromLocalFile(audioPath));
+
     // Set volume
-    audioOutput->setVolume(10);  // Set the volume (0.0 to 1.0)
+    audioOutput->setVolume(0.9);  // Set the volume (0.0 to 1.0)
 }
 
 
@@ -420,7 +463,8 @@ void MainWindow::onStopClicked()
 //**************************************************************************************
 void MainWindow::onVolumeChanged(int value)
 {
-    // Change volume
+
+    //Change volume
 }
 
 //**************************************************************************************
@@ -428,12 +472,16 @@ void MainWindow::onVolumeChanged(int value)
 //**************************************************************************************
 void MainWindow::onMuteClicked()
 {
+    int previousVolume = 0;
     if (muteButton->text() == "🔊") {
         muteButton->setText("🔈");
         // Mute audio
+        libvlc_audio_set_mute(vlcMediaPlayer, true);
+
     } else {
         muteButton->setText("🔊");
         // Unmute audio
+        libvlc_audio_set_mute(vlcMediaPlayer, false);
     }
 }
 
@@ -473,6 +521,20 @@ void MainWindow::keyPressEvent(QKeyEvent *event)
     }
 }
 
+
+//**************************************************************************************
+// Video Volume Changed
+//**************************************************************************************
+void MainWindow::onVideoVolumeChanged(int value)
+{
+    // Convert slider value to a volume value between 0 and 100
+    int volume = value;
+
+    // Set VLC volume
+    libvlc_audio_set_volume(vlcMediaPlayer, volume);
+}
+
+
 //**************************************************************************************
 // Mouse Botton Pressed to exit Fullscreen
 //**************************************************************************************
@@ -500,7 +562,7 @@ void MainWindow::updateUI() {
         curAudioTimeLabel->setText(QTime(0, 0, 0).addMSecs(curAudioTime).toString("hh:mm:ss"));
         totalTimeLabel->setText(QTime(0, 0, 0).addMSecs(totalTime).toString("hh:mm:ss"));
 
-        if (qAbs(currentTime - curAudioTime) > 1000) {
+        if (qAbs(currentTime - curAudioTime) > 5000) {
             player->setPosition(currentTime);
             qDebug() << "Adjust Audio Time: " << currentTime;
         }
@@ -515,7 +577,7 @@ void MainWindow::on_actionAbout_triggered()
     QMessageBox msgBox;
     QApplication::setWindowIcon(QIcon(":/XXX.ico")); // from a resource file
     QMessageBox::about(this, "About CHPlyer QT", "CHPlayer QT\n\n"
-        "Verion: Beta 2\n\n"
+        "Verion: Beta 3\n\n"
         "Copyright © 2024\n\n"
         "XXXApp\n\n"
         "This Program CH Player QT start embeded VLC Video PLayer\n"
