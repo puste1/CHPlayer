@@ -1,7 +1,7 @@
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
 
-#include "qlabel.h"
+//#include <QLabel>
 #include "qpushbutton.h"
 #include "qslider.h"
 #include "qtimer.h"
@@ -9,12 +9,12 @@
 #include <vlc/vlc.h>
 #include <QResizeEvent>
 #include <QWidget>
+#include <QtWidgets/QLabel>
 #include <QMouseEvent>
 #include <QComboBox>
 #include <QMediaPlayer>
 #include <QAudioDevice>
 #include <QAudioOutput>
-
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -46,6 +46,7 @@ private slots:
     void on_actionAbout_triggered();
     void on_actionfullScreen_triggered();
     void on_actioninfoScreen_triggered();
+
 
 protected:
     void keyPressEvent(QKeyEvent *event) override;
@@ -86,11 +87,21 @@ private:
 private:
     void getVolume();
 
+private:
+    void getLastUsedDirectory();
+
+private:
+    void setLastUsedDirectory(const QString &directory);
+
+private:
+    void onVideoVolumeChanged(int value);
 
 private:
     Ui::MainWindow *ui;
     libvlc_instance_t *vlcInstance;
     libvlc_media_player_t *vlcMediaPlayer;
+    libvlc_instance_t *vlcAInstance;
+    libvlc_media_player_t *vlcAudioPlayer;
     QFrame *videoFrame;
     QPushButton *BtFullscreen;
     bool isFullScreen = false;
@@ -110,6 +121,9 @@ private:
     bool audio = false;
     QString videoFile;
     QString audioFile;
+    QString lastUsedDirectory;
+
+
 
 
 };

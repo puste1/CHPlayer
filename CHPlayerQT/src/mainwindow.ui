@@ -114,7 +114,8 @@
   </widget>
   <action name="actionLoad_Video_File">
    <property name="icon">
-    <iconset theme="video-x-generic"/>
+    <iconset resource="Resources.qrc">
+     <normaloff>:/resources/My-Videos-icon.png</normaloff>:/resources/My-Videos-icon.png</iconset>
    </property>
    <property name="text">
     <string>Load Video File</string>
@@ -122,7 +123,8 @@
   </action>
   <action name="actionLoad_Audio_File">
    <property name="icon">
-    <iconset theme="audio-card"/>
+    <iconset resource="Resources.qrc">
+     <normaloff>:/resources/My-Music-icon.png</normaloff>:/resources/My-Music-icon.png</iconset>
    </property>
    <property name="text">
     <string>Load Audio File</string>
@@ -145,7 +147,8 @@
   </action>
   <action name="actionfullScreen">
    <property name="icon">
-    <iconset theme="view-fullscreen"/>
+    <iconset resource="Resources.qrc">
+     <normaloff>:/resources/Full_screen.png</normaloff>:/resources/Full_screen.png</iconset>
    </property>
    <property name="text">
     <string>fullScreen</string>
@@ -156,7 +159,8 @@
   </action>
   <action name="actioninfoScreen">
    <property name="icon">
-    <iconset theme="dialog-information"/>
+    <iconset resource="Resources.qrc">
+     <normaloff>:/resources/information-emblem.png</normaloff>:/resources/information-emblem.png</iconset>
    </property>
    <property name="text">
     <string>infoScreen</string>
