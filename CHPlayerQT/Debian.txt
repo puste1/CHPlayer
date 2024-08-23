@@ -1,0 +1,13 @@
+When install debian package it will install all the Dependency. 
+If it not install you have to manuel use ldd on the program to se all Dependency. 
+ldd CHPlayerQT.
+
+Try it out and tell me if you know any thing about the error on some system when start.
+CHPlayerQT: /lib/x86_64-linux-gnu/libQt6Multimedia.so.o: no version information avaialble (required by CHPlayerQT). 
+
+Install of the program on Debian creates a Icon under VideoAudio. 
+From this you can start the program. 
+Start the program manuel is just type CHPlayerQT on command line.
+
+Best Regards.
+Puste.
